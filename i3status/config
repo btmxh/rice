@@ -3,25 +3,26 @@ general {
         colors = true
         interval = 5
 	
-        color_good = "#aaff00"
-        color_degraded = "#00dddd"
-        color_bad = "#ff2200"
+        color_good = "#98c379"
+        color_degraded = "#56b6c2"
+        color_bad = "#e06c75"
 }
 
-order += "disk /"
 order += "wireless wlan0"
 # order += "ethernet eth0"
 order += "battery 0"
 order += "volume master"
 # order += "cpu_temperature 0"
+order += "disk /"
+order += "cpu_usage"
 order += "memory"
-order += "load"
+# order += "load"
 order += "tztime local"
 order += "tztime berlin"
 
 wireless wlan0 {
-        format_up = "W: (%quality at %essid, %bitrate) %ip"
-        format_down = "W: down"
+        format_up = " (%essid %quality, %bitrate)"
+        format_down = " down"
 }
 
 ethernet eth0 {
@@ -32,10 +33,10 @@ ethernet eth0 {
 battery 0 {
         format = "%status %percentage %remaining %emptytime"
         format_down = "No battery"
-        status_chr = "⚡ CHR"
-        status_bat = "🔋 BAT"
-        status_unk = "? UNK"
-        status_full = "☻ FULL"
+        status_chr = " CHR"
+        status_bat = " BAT"
+        status_unk = " UNK"
+        status_full = " FULL"
         path = "/sys/class/power_supply/BAT%d/uevent"
         low_threshold = 10
 }
@@ -66,7 +67,7 @@ tztime local {
 }
 
 tztime berlin {
-        format = "%Y-%m-%d %H:%M:%S %Z"
+        format = " %a %Y-%m-%d %H:%M:%S"
         timezone = "Asia/Ho_Chi_Minh"
 }
 
@@ -79,14 +80,18 @@ cpu_temperature 0 {
         path = "/sys/devices/platform/coretemp.0/temp1_input"
 }
 
+cpu_usage {
+        format = " %usage"
+}
+
 memory {
-        format = "%used"
+        format = " %used"
         threshold_degraded = "10%"
         format_degraded = "MEMORY: %free"
 }
 
 disk "/" {
-        format = "%free"
+        format = " %free"
 }
 
 read_file uptime {
