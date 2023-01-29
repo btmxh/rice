@@ -39,3 +39,8 @@ vim.keymap.set("n", "<leader>ss", "<cmd>set spell<CR>")
 vim.keymap.set("n", "<leader>nss", "<cmd>set nospell<CR>")
 vim.keymap.set("n", "<leader>st", "zg")
 vim.keymap.set("n", "<leader>sf", "z=")
+
+vim.keymap.set("n", "<leader>te", "<cmd>TroubleToggle<CR>")
+vim.keymap.set("n", "<leader>tr", "<cmd>Trouble<CR>")
+
+vim.keymap.set("n", "<leader>ww", "<C-w><C-w>")
