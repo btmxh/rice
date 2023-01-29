@@ -8,6 +8,8 @@ lsp.ensure_installed({
 	'rust_analyzer',
 })
 
+lsp.skip_server_setup({'rust_analyzer'})
+
 local cmp = require 'cmp'
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -35,4 +37,21 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set('n', '<C-h>', function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+lsp.nvim_workspace()
+
+
+local rust_lsp = lsp.build_options('rust_analyzer', {
+  single_file_support = false,
+  checkOnSave = {
+    command = "clippy"
+  }
+})
+
+require('rust-tools').setup({server = rust_lsp})
+
 lsp.setup()
+
+vim.diagnostic.config({
+  virtual_text = true,
+})
+
