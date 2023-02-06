@@ -65,8 +65,17 @@ return require('packer').startup(function(use)
     tag = 'v0.0.1-alpha',
     rocks = { 'dbus_proxy', 'lgi' },
     config = function()
-      require'fcitx5'.setup {}
-      vim.cmd[[inoremap <S-space> <Cmd>lua require'fcitx5'.toggle()<CR>]]
+      require 'fcitx5'.setup {}
+      vim.cmd [[inoremap <S-space> <Cmd>lua require'fcitx5'.toggle()<CR>]]
+    end
+  }
+
+  use {
+    'tummetott/reticle.nvim',
+    config = function()
+      require('reticle').setup {
+        -- add options here or leave empty
+      }
     end
   }
 end)
