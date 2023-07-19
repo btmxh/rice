@@ -28,6 +28,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id alttab -font xft:monospace -t 800x100 -vertical
 exec --no-startup-id dunst
 exec --no-startup-id picom -b
+exec --no-startup-id ibus-daemon -rxR
 
 # change this to wallpaper path
 exec --no-startup-id feh --auto-reload --no-fehbg --bg-fill '/home/torani/wp/1984.jpg'
