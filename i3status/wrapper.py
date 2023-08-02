@@ -2,7 +2,9 @@
 import json
 import subprocess
 import sys
-import textwrap
+
+def shorten(text, max_length):
+    return text if len(text) <= max_length else (text[:max_length-3] + '...')
 
 def get_current_music_title():
     max_title_len = 16
@@ -28,8 +30,8 @@ def get_current_music_title():
     max_title_len += max(0, max_artist_len - len(artist))
     max_artist_len += max(0, max_title_len - len(title))
 
-    title = textwrap.shorten(title, width=max_title_len, placeholder='...')
-    artist = textwrap.shorten(artist, width=max_artist_len, placeholder='...')
+    title = shorten(title, max_title_len)
+    artist = shorten(artist, max_artist_len)
 
     return [f"{emote} {artist} - {title}", color]
 
