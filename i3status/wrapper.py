@@ -6,6 +6,14 @@ import sys
 def shorten(text, max_length):
     return text if len(text) <= max_length else (text[:max_length-3] + '...')
 
+artist_aliases = {
+    "Foreground Eclipse": "F. Eclipse",
+    "hololive IDOL PROJECT": "hololive I.P.",
+    "温泉むすめ SPRiNGS": "SPRiNGS",
+    "温泉むすめ petit corolla": "petit corolla",
+    "CHiCO with HoneyWorks": "CHiCO w/ HW",
+}
+
 def get_current_music_title():
     max_title_len = 16
     max_artist_len = 12
@@ -26,6 +34,8 @@ def get_current_music_title():
     if 'No players found' in title:
         return ["", color]
     artist = subprocess.getoutput('playerctl metadata artist')
+    if artist in artist_aliases:
+        artist = artist_aliases[artist]
 
     max_title_len += max(0, max_artist_len - len(artist))
     max_artist_len += max(0, max_title_len - len(title))
