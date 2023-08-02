@@ -25,8 +25,8 @@ def get_current_music_title():
         return ""
     artist = subprocess.getoutput('playerctl metadata artist')
 
-    max_title_len += min(0, max_artist_len - len(artist))
-    max_artist_len += min(0, max_title_len - len(title))
+    max_title_len += max(0, max_artist_len - len(artist))
+    max_artist_len += max(0, max_title_len - len(title))
 
     title = textwrap.shorten(title, width=max_title_len, placeholder='...')
     artist = textwrap.shorten(artist, width=max_artist_len, placeholder='...')
