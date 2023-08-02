@@ -22,7 +22,7 @@ def get_current_music_title():
 
     title = subprocess.getoutput('playerctl metadata title')
     if 'No players found' in title:
-        return ""
+        return ["", color]
     artist = subprocess.getoutput('playerctl metadata artist')
 
     max_title_len += max(0, max_artist_len - len(artist))
