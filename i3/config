@@ -29,9 +29,13 @@ exec --no-startup-id alttab -font xft:monospace -t 800x100 -vertical
 exec --no-startup-id dunst
 exec --no-startup-id picom -b
 exec --no-startup-id ibus-daemon -rxR
+exec --no-startup-id thunar --daemon
+exec --no-startup-id playerctld
+exec --no-startup-id snixembed
+exec --no-startup-id iwgtk
 
 # change this to wallpaper path
-exec --no-startup-id feh --auto-reload --no-fehbg --bg-fill '/home/torani/wp/1984.jpg'
+exec --no-startup-id feh --auto-reload --no-fehbg --bg-fill '/home/torani/wp/eyes.jpg'
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -45,6 +49,8 @@ bindsym XF86AudioPlay exec playerctl play-pause && $refresh_i3status
 bindsym XF86AudioNext exec playerctl next && $refresh_i3status
 bindsym XF86AudioPrev exec playerctl previous && $refresh_i3status
 bindsym $mod+Shift+w sticky toggle
+bindsym Print exec scopt
+bindsym $mod+Print exec scrot -e 'xclip -sel clip -t image/png -i $f'
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -67,31 +73,19 @@ bindcode $mod+Shift+40 exec "rofi -show file-browser-extended"
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+x split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -168,10 +162,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -185,6 +179,21 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
+# move floating windows with keys
+bindsym $mod+m mode "move" focus floating
+mode "move" {
+    bindsym $mod+Tab focus right
+
+    bindsym h     move left
+    bindsym j     move down
+    bindsym k     move up
+    bindsym l     move right
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -194,9 +203,9 @@ bar {
         status_command i3status | ~/.config/i3status/wrapper.py
         position top
         colors {
-                background #1e212799
-                separator #444444
-                statusline #B1B1B1
+                background #00000000
+                separator #AAAAAA
+                statusline #FFFFFF
                 focused_workspace #CECECE #CECECE #000000
                 active_workspace #333333 #333333 #888888
                 inactive_workspace #CECECE #333333 #f1f1f1
@@ -208,5 +217,15 @@ default_border pixel 2
 gaps outer 2
 gaps inner 2
 
-client.urgent           #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused          #2f343a #900000 #ffffff #900000   #900000
+set $transparent #00000000
+set $urgentcol #900000
+client.urgent           $urgencol $urgentcol #ffffff $urgentcol $urgentcol
+
+set $focuscol #7e6badbb
+client.focused          $focuscol $focuscol #ffffff $focuscol #ffffff
+
+set $unfocuscol #f6edf233
+client.unfocused        $unfocuscol $unfocuscol #434a9b #292d2e $transparent
+
+default_floating_border pixel 1
+
