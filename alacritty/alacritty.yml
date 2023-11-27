@@ -64,8 +64,8 @@ colors:
   #  - { index: 16, color: '0x000000' }
 
 font:
-  size: 9.0
+  size: 8.0
 
 window:
-  opacity: 0.9
+  opacity: 0.75
 
