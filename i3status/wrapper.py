@@ -2,11 +2,25 @@
 import json
 import subprocess
 import sys
-import textwrap
+
+def shorten(text, max_length):
+    return text if len(text) <= max_length else (text[:max_length-1] + '…')
+
+artist_aliases = {
+    "Foreground Eclipse": "F. Eclipse",
+    "hololive IDOL PROJECT": "hololive I.P.",
+    "温泉むすめ SPRiNGS": "SPRiNGS",
+    "温泉むすめ petit corolla": "petit corolla",
+    "CHiCO with HoneyWorks": "CHiCO w/ HW",
+}
+
+def trim_artist_name(artist):
+    artist = artist.removesuffix(' - Topic')
+    return artist
 
 def get_current_music_title():
-    max_title_len = 16
-    max_artist_len = 12
+    max_title_len = 40
+    max_artist_len = 20
 
     status = subprocess.getoutput('playerctl status')
     
@@ -22,16 +36,35 @@ def get_current_music_title():
 
     title = subprocess.getoutput('playerctl metadata title')
     if 'No players found' in title:
-        return ""
+        return ["", color]
     artist = subprocess.getoutput('playerctl metadata artist')
+    if artist in artist_aliases:
+        artist = artist_aliases[artist]
+    else:
+        artist = trim_artist_name(artist)
 
     max_title_len += max(0, max_artist_len - len(artist))
     max_artist_len += max(0, max_title_len - len(title))
 
-    title = textwrap.shorten(title, width=max_title_len, placeholder='...')
-    artist = textwrap.shorten(artist, width=max_artist_len, placeholder='...')
+    title = shorten(title, max_title_len)
+    artist = shorten(artist, max_artist_len)
 
     return [f"{emote} {artist} - {title}", color]
+
+def get_current_headset_battery_level():
+    output = subprocess.getoutput('upower -i /org/freedesktop/UPower/devices/headset_dev_41_42_77_9D_CD_D0')
+    for line in output.splitlines():
+        if 'percentage:' in line:
+            s = line[line.index('percentage:') + len('percentage:'):].strip()[:-1]
+            if 'should be ignored' in s:
+                return None
+            num = int(s)
+            if num > 70: 
+                color = '#98c379'
+            else:
+                color = '#56b6c2'
+            return [f'󰋎 {num}%', color]
+    return None
 
 def print_line(message):
     """ Non-buffered printing to stdout. """
@@ -76,5 +109,13 @@ if __name__ == '__main__':
             'color': color,
             'name': 'music_title',
             'separator_block_width': 25})
+        pair = get_current_headset_battery_level()
+        if pair is not None:
+            [text, color] = pair
+            j.insert(0, {
+                'full_text': '%s' % text,
+                'color': color,
+                'name': 'music_title',
+                'separator_block_width': 25})
 
         print_line(prefix+json.dumps(j))

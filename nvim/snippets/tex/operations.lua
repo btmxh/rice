@@ -1,0 +1,15 @@
+return {
+  msa("op", {t("\\operatorname{"), i(1), t("}")}),
+  msa("olp", {t("\\operatorname{"), i(1), t("}\\limits_{"), i(2), t("}")}),
+  mss("OO", "\\varnothing"),
+  mss("cc", "\\subseteq"),
+  mss("cs", "\\subset"),
+  mss("nee", "\\notin"),
+  mss("ee", "\\in"),
+  mss("prp", "\\propto"),
+  msa("exp", {t("e^{"), i(1), t("}")}),
+  msa("flr", {t("\\lfloor "), i(1), t("\\rfloor")}),
+  msa("lrb", {t("\\left\\{ "), i(1), t("\\right\\}")}),
+  msa("vv", {t("\\vec{"), i(1), t("}")}),
+  msa("vb", {t("\\overrightarrow{"), i(1), t("}")}),
+}

@@ -8,7 +8,7 @@ general {
         color_bad = "#e06c75"
 }
 
-order += "wireless wlan0"
+# order += "wireless wlan0"
 # order += "ethernet eth0"
 order += "battery 0"
 order += "volume master"
