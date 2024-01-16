@@ -1,23 +1,46 @@
 return {
-  'simrat39/rust-tools.nvim',
-  dependencies = {
-    'VonHeikemen/lsp-zero.nvim'
-  },
-  config = function ()
-    local lsp = require 'lsp-zero'
-    local rust_lsp = lsp.build_options('rust_analyzer', {
-      single_file_support = false,
+  'mrcjkb/rustaceanvim',
+  version = '^3',
+  ft = 'rust',
+  opts = {
+    server = {
+      on_attach = function(_, bufnr)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", function()
+          vim.cmd.RustLsp('codeAction')
+        end)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dr", function()
+          vim.cmd.RustLsp('debuggables')
+        end)
+      end,
       settings = {
-          -- to enable rust-analyzer settings visit:
-          -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-          ["rust-analyzer"] = {
-          -- enable clippy on save
-          checkOnSave = {
-              command = "clippy"
+        -- rust-analyzer language server configuration
+        ["rust-analyzer"] = {
+          cargo = {
+            allFeatures = true,
+            loadOutDirsFromCheck = true,
+            runBuildScripts = true,
           },
-          }
+          -- Add clippy lints for Rust.
+          checkOnSave = {
+            allFeatures = true,
+            command = "clippy",
+            extraArgs = { "--no-deps" },
+          },
+          procMacro = {
+            enable = true,
+            ignored = {
+              ["async-trait"] = { "async_trait" },
+              ["napi-derive"] = { "napi" },
+              ["async-recursion"] = { "async_recursion" },
+            },
+          },
+        },
       }
-    })
-    require('rust-tools').setup({ server = rust_lsp })
+    }
+  },
+  config = function(_, opts)
+    vim.g.rustaceanvim = vim.tbl_deep_extend("force",
+      {},
+      opts or {})
   end
 }

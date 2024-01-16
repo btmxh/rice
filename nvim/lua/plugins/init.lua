@@ -1,5 +1,21 @@
 return {
   {
+    'hrsh7th/nvim-cmp',
+    config = function()
+      require 'cmp'.setup {
+        snippet = {
+          expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+          end
+        },
+
+        sources = {
+          { name = 'luasnip' }
+        }
+      }
+    end
+  },
+  {
     'hrsh7th/cmp-nvim-lsp',
     dependencies = {
       'hrsh7th/nvim-cmp'
@@ -26,7 +42,7 @@ return {
   {
     'saadparwaiz1/cmp_luasnip',
     dependencies = {
-      'hrsh7th/nvim-cmp'
+      'hrsh7th/nvim-cmp',
     }
   },
 
@@ -51,7 +67,7 @@ return {
     end
   },
 
-  
+
   {
     'iurimateus/luasnip-latex-snippets.nvim',
     config = function()
@@ -59,5 +75,29 @@ return {
     end,
   },
 
-  'rlue/vim-barbaric'
+  'rlue/vim-barbaric',
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = {
+      'kevinhwang91/promise-async',
+    },
+    config = function()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+      }
+      local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
+      for _, ls in ipairs(language_servers) do
+        require('lspconfig')[ls].setup({
+          capabilities = capabilities
+          -- you can add other fields for setting up lsp server in this table
+        })
+      end
+
+      require('ufo').setup()
+    end
+  },
+
+  'tpope/vim-commentary'
 }

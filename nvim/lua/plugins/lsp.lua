@@ -3,18 +3,19 @@ return {
   branch = 'v3.x',
   dependencies = {
     -- LSP Support
-    { 'neovim/nvim-lspconfig' },             -- Required
-    { 'williamboman/mason.nvim' },           -- Optional
-    { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+    { 'neovim/nvim-lspconfig' },   -- Required
+    { 'williamboman/mason.nvim' }, -- Optional
+    { 'williamboman/mason-lspconfig.nvim' },
 
     -- Autocompletion
     { 'hrsh7th/nvim-cmp' },     -- Required
     { 'hrsh7th/cmp-nvim-lsp' }, -- Required
   },
-  config = function ()
+  config = function()
     local lsp = require 'lsp-zero'
     lsp.preset('recommended')
-
+    
+    require("mason-lspconfig").setup()
     require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
     local cmp = require 'cmp'
@@ -92,5 +93,5 @@ return {
     })
 
     lsp.setup()
-  end
+  end,
 }
