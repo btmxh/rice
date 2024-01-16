@@ -27,7 +27,13 @@ return {
 
   mss("CO", "\\mathbb{C}"),
   mss("CC", "\\mathcal{C}"),
+  mss("Aa", "\\mathcal{A}"),
+  mss("BB", "\\mathcal{B}"),
   mss("LL", "\\mathcal{L}"),
   mss("SS", "\\mathcal{S}"),
+  mss("TT", "\\mathcal{T}"),
+  mss("Uu", "\\mathcal{U}"),
   mss("II", "\\mathbb{I}"),
+  mss("lcl", "\\ell"),
+
 }

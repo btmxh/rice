@@ -14,7 +14,7 @@ return {
     }
   )),
   tsa({ trig = "--", hidden = true }, { t("\\item") },
-    { condition = env("itemize") * line_begin, }
+    { condition = (env("itemize") + env("enumerate")) * line_begin, }
   ),
   tsa(",,thr", fmta([[
     \begin{theorem}
