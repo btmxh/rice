@@ -33,6 +33,7 @@ exec --no-startup-id thunar --daemon
 exec --no-startup-id playerctld
 exec --no-startup-id snixembed
 exec --no-startup-id iwgtk
+exec --no-startup-id mpris-systray
 
 # change this to wallpaper path
 exec --no-startup-id feh --auto-reload --no-fehbg --bg-fill '/home/torani/wp/eyes.jpg'
