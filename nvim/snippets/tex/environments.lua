@@ -107,5 +107,10 @@ return {
       <>
       \caption{<>}
     \end{subfigure}
-    ]], {i(2), i(1)}))
+    ]], {i(2), i(1)})),
+    tsa("abc", fmta([[
+    \begin{enumerate}[label=\alph*]
+      <>
+    \end{enumerate}
+    ]], {i(1)}))
 }

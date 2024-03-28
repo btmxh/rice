@@ -34,10 +34,12 @@ def get_current_music_title():
         emote = ''
         color = '#56b6c2'
 
-    title = subprocess.getoutput('playerctl metadata title')
-    if 'No players found' in title:
+    error, title = subprocess.getstatusoutput('playerctl metadata title')
+    if error != 0:
         return ["", color]
-    artist = subprocess.getoutput('playerctl metadata artist')
+    error, artist = subprocess.getstatusoutput('playerctl metadata artist')
+    if error != 0:
+        return ["", color]
     if artist in artist_aliases:
         artist = artist_aliases[artist]
     else:

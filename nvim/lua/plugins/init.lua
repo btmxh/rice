@@ -1,60 +1,12 @@
 return {
-  {
-    'hrsh7th/nvim-cmp',
-    config = function()
-      require 'cmp'.setup {
-        snippet = {
-          expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-          end
-        },
-
-        sources = {
-          { name = 'luasnip' }
-        }
-      }
-    end
-  },
-  {
-    'hrsh7th/cmp-nvim-lsp',
-    dependencies = {
-      'hrsh7th/nvim-cmp'
-    }
-  },
-  {
-    'hrsh7th/cmp-nvim-lua',
-    dependencies = {
-      'hrsh7th/nvim-cmp'
-    }
-  },
-  {
-    'hrsh7th/cmp-buffer',
-    dependencies = {
-      'hrsh7th/nvim-cmp'
-    }
-  },
-  {
-    'hrsh7th/cmp-path',
-    dependencies = {
-      'hrsh7th/nvim-cmp'
-    }
-  },
-  {
-    'saadparwaiz1/cmp_luasnip',
-    dependencies = {
-      'hrsh7th/nvim-cmp',
-    }
-  },
-
   'rafamadriz/friendly-snippets',
 
   {
     "windwp/nvim-autopairs",
+    lazy = false,
     config = function() require("nvim-autopairs").setup {} end
   },
 
-  -- Debugging
-  'nvim-lua/plenary.nvim',
   'mfussenegger/nvim-dap',
 
   'folke/trouble.nvim',

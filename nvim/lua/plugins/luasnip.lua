@@ -3,7 +3,7 @@ return {
   dependencies = {
     'rafamadriz/friendly-snippets'
   },
-  config = function ()
+  config = function()
     require('luasnip').config.set_config({
       enable_autosnippets = true,
       snip_env = require('torani.tex_utils'),

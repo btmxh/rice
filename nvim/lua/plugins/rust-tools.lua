@@ -4,13 +4,11 @@ return {
   ft = 'rust',
   opts = {
     server = {
-      on_attach = function(_, bufnr)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", function()
-          vim.cmd.RustLsp('codeAction')
-        end)
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dr", function()
-          vim.cmd.RustLsp('debuggables')
-        end)
+      on_attach = function(client, bufnr)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>RustLsp codeAction<CR>",
+          { desc = "rustaceanvim: Code actions" })
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dr", "<cmd>RustLsp debuggables<CR>",
+          { desc = "rustaceanvim: Debuggables" })
       end,
       settings = {
         -- rust-analyzer language server configuration

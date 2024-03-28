@@ -10,6 +10,7 @@ return {
   mss(";T", "\\Theta"),
   mss(";k", "\\kappa"),
   mss(";l", "\\lambda"),
+  mss(";L", "\\Lambda"),
   mss(";m", "\\mu"),
   mss(";n", "\\nu"),
   mss(";x", "\\xi"),

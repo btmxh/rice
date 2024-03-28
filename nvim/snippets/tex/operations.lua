@@ -12,4 +12,7 @@ return {
   msa("lrb", {t("\\left\\{ "), i(1), t("\\right\\}")}),
   msa("vv", {t("\\vec{"), i(1), t("}")}),
   msa("vb", {t("\\overrightarrow{"), i(1), t("}")}),
+  mss("sup", "\\sup "),
+  mss("ifm", "\\inf "),
+  mss("bnd", "\\partial "),
 }

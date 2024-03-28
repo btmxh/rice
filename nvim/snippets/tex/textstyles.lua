@@ -4,4 +4,5 @@ return {
   tsa("bf", { t("\\textbf{"), i(1), t("}") }),
   tsa("ita", { t("\\textit{"), i(1), t("}") }),
   msa("txt", { t("\\text{"), i(1), t("}")}),
+  ss("__", "\\hline")
 }

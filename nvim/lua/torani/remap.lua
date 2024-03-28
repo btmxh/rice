@@ -1,67 +1,58 @@
-vim.g.mapleader = ","
-vim.keymap.set("n", "<leader>pv", vim.cmd.Oil)
+vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>pv", vim.cmd.Oil, { desc = "oil: Open explorer" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-
--- greatest remap ever
-vim.keymap.set("x", "<leader>p", [["_dP]])
-
--- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste from Clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Copy to Clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copy line to Clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Cut to Clipboard" })
 
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "New tmux session" })
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format document" })
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Quick replace" })
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make executable" })
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>vps", "<cmd>e " .. vim.fn.stdpath("config") .. "/snippets<CR>", { desc = "Edit snippets" });
 
-vim.keymap.set("n", "<leader>vpp", "<cmd>e ".. vim.fn.stdpath("config") .."/lua/torani/packer.lua<CR>");
-vim.keymap.set("n", "<leader>vpe", "<cmd>e ".. vim.fn.stdpath("config") .."<CR>");
-vim.keymap.set("n", "<leader>vps", "<cmd>e ".. vim.fn.stdpath("config") .."/snippets<CR>");
+vim.keymap.set("n", "<leader>ss", "<cmd>set spell!<CR>", { desc = "spell: Toggle" })
+vim.keymap.set("n", "<leader>st", "zg", { desc = "spell: Add word to dict" })
+vim.keymap.set("n", "<leader>sf", "z=", { desc = "spell: Fix" })
 
-function ReloadConfig()
-  for name,_ in pairs(package.loaded) do
-    if name:match('^torani') and not name:match('nvim-tree') then
-      package.loaded[name] = nil
-    end
-  end
+vim.keymap.set("n", "<leader>ww", "<C-w><C-w>", { desc = "Go to next window" })
+vim.keymap.set("n", "<leader>wh", "<C-w><C-h>", { desc = "Go to left window" })
+vim.keymap.set("n", "<leader>wj", "<C-w><C-j>", { desc = "Go to down window" })
+vim.keymap.set("n", "<leader>wk", "<C-w><C-k>", { desc = "Go to up window" })
+vim.keymap.set("n", "<leader>wl", "<C-w><C-l>", { desc = "Go to right window" })
 
-  require('torani')
-  local glob = vim.fn.stdpath('config') .. '/after/**/*.lua'
-  for _, path in ipairs(vim.fn.glob(glob, true, true)) do
-    dofile(path)
-  end
-
-  vim.notify("nvim configuration reloaded", vim.log.levels.INFO)
-end
-
-vim.keymap.set("n", "<leader>vpr", ReloadConfig);
-
-vim.keymap.set("n", "<leader>ss", "<cmd>set spell<CR>")
-vim.keymap.set("n", "<leader>nss", "<cmd>set nospell<CR>")
-vim.keymap.set("n", "<leader>st", "zg")
-vim.keymap.set("n", "<leader>sf", "z=")
-
-vim.keymap.set("n", "<leader>te", "<cmd>TroubleToggle<CR>")
-vim.keymap.set("n", "<leader>tr", "<cmd>Trouble<CR>")
-
-vim.keymap.set("n", "<leader>ww", "<C-w><C-w>")
+vim.keymap.set("n", "<leader>sh", "<cmd>split<CR>", { desc = "Open horizontal split" })
+vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<CR>", { desc = "Open vertical split" })
 
 vim.keymap.set("n", ";", ":")
-vim.keymap.set("n", ";;", ";", {remap = true})
+vim.keymap.set("n", ";;", ";", { remap = true })
+
+vim.keymap.set("n", "gl", function() vim.diagnostic.open_float() end, { desc = "Open diagnostic" })
+vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, { desc = "Next diagnostic" })
+vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, { desc = "Prev diagnostic" })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "LSP actions",
+  callback = function(event)
+    local function opts(desc)
+      return { buffer = event.buf, remap = false, desc = desc }
+    end
+    vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts("Go to definition"))
+    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts("Hover"))
+    vim.keymap.set('n', '<leader>vws', function() vim.lsp.buf.workspace_symbol() end, opts("Workspace symbol"))
+    vim.keymap.set('n', '<leader>vca', function() vim.lsp.buf.code_action() end, opts("Code action"))
+    vim.keymap.set('n', '<leader>vrr', function() vim.lsp.buf.references() end, opts("References"))
+    vim.keymap.set('n', '<leader>vrn', function() vim.lsp.buf.rename() end, opts("Rename"))
+    vim.keymap.set('n', '<C-_>', function() vim.lsp.buf.signature_help() end, opts("Signature help"))
+  end
+})
+
+vim.api.nvim_set_keymap("n", "gx", [[:silent execute '!xdg-open ' . shellescape(expand('<cfile>'), 1)<CR>]],
+  { desc = "Open link" })
