@@ -9,6 +9,7 @@ return {
           { desc = "rustaceanvim: Code actions" })
         vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dr", "<cmd>RustLsp debuggables<CR>",
           { desc = "rustaceanvim: Debuggables" })
+        vim.lsp.inlay_hint.enable(bufnr, true)
       end,
       settings = {
         -- rust-analyzer language server configuration
