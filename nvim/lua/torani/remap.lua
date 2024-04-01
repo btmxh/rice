@@ -56,3 +56,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.api.nvim_set_keymap("n", "gx", [[:silent execute '!xdg-open ' . shellescape(expand('<cfile>'), 1)<CR>]],
   { desc = "Open link" })
+
+vim.keymap.set("n", "<leader>il", function()
+  vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
+end, { desc = "Toggle inlay hint" })
