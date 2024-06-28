@@ -35,7 +35,7 @@ exec --no-startup-id snixembed
 exec --no-startup-id iwgtk
 
 # change this to wallpaper path
-exec --no-startup-id feh --auto-reload --no-fehbg --bg-fill '/home/torani/wp/eyes.jpg'
+exec --no-startup-id feh --auto-reload --no-fehbg --bg-fill '/home/torani/wp/yapperchama.png'
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
