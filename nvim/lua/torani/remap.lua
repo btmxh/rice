@@ -65,3 +65,5 @@ end, { desc = "Toggle inlay hint" })
 
 -- terminal related
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+vim.keymap.set("n", "<leader>hh", "<cmd>ClangdSwitchSourceHeader<CR>", { desc = "Toggle header/source (C/C++)" })
