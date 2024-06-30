@@ -1,25 +1,18 @@
 return {
   {
     "btmxh/cphelper.nvim",
+    dev = true,
     config = function()
       vim.cmd [[let g:cph#dir = expand('$HOME/dev/contests')]]
       vim.cmd [[let g:cph#cpp#compile_command = 'g++ solution.cpp --std=c++20 -o cpp.out']]
       vim.cmd [[let g:cph#cpp#template_path = expand('$HOME/dev/contests/solution.cpp')]]
       vim.cmd [[let g:cph#cpp#language_id = 89]]
-      vim.g["cph#cpp#transform"] = function(code)
-        local transformed = ""
-        for line in code:gmatch("[^\r\n]+") do
-          local header = line:match("#include \"(.*)\" // TEMPLATE")
-          if header ~= nil then
-            local f = assert(io.open(header), "r")
-            local content = f:read("*all")
-            f:close()
-            transformed = transformed .. content .. '\n'
-          else
-            transformed = transformed .. line .. '\n'
-          end
-        end
-        return transformed
+      vim.g["cph#cpp#transform"] = function(code, accept)
+        local job = vim.system({"cptpp", "-"}, {
+          stdin = code,
+          text = true
+        })
+        vim.schedule(function() accept(job:wait().stdout) end)
       end
 
       vim.keymap.set("n", "<leader>cpr", "<cmd>CphReceive<CR>", { desc = "cphelper: Receive" })
