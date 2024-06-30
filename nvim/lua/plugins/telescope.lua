@@ -16,8 +16,8 @@ return {
   opts = {
     defaults = {
       mappings = {
-        i = { ["<C-T>"] = trouble.open_with_trouble },
-        n = { ["<C-T>"] = trouble.open_with_trouble },
+        i = { ["<C-T>"] = require("trouble.sources.telescope").open },
+        n = { ["<C-T>"] = require("trouble.sources.telescope").open },
       }
     }
   }
