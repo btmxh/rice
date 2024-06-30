@@ -27,5 +27,7 @@ return {
       cwd = "${workspaceFolder}",
       stopAtBeginningOfMainSubprogram = false,
     } }
+
+    dap.configurations.zig = dap.configurations.c;
   end
 }
