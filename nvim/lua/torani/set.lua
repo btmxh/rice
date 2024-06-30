@@ -39,3 +39,5 @@ vim.filetype.add({
 })
 
 vim.g.filetype_typ = 1
+vim.opt.splitbelow = true
+vim.opt.splitright = true
