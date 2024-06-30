@@ -13,10 +13,9 @@ return {
   'nvim-tree/nvim-web-devicons',
 
   {
-    'tummetott/reticle.nvim',
-    config = function()
-      require('reticle').setup {}
-    end
+    'btmxh/reticle.nvim',
+    config = true,
+    dev = true,
   },
 
 
