@@ -1,38 +1,52 @@
 return {
   'neovim/nvim-lspconfig',
   lazy = false,
+  dev = true,
   config = function()
     local lsp = require('lspconfig')
-    lsp.clangd.setup {}
-    lsp.lua_ls.setup {
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = {
-              'vim'
-            }
-          },
-          workspace = {
-            library = {
-              vim.env.VIMRUNTIME,
+    local configs = {
+      clangd = {},
+      lua_ls = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = {
+                'vim'
+              }
+            },
+            workspace = {
+              library = {
+                vim.env.VIMRUNTIME,
+              }
             }
           }
         }
-      }
+      },
+      tsserver = {
+        root_dir = lsp.util.root_pattern("package.json"),
+        single_file_support = false,
+      },
+      eslint = {},
+      typst_lsp = {
+        settings = {
+          exportPdf = "onType",
+          experimentalFormatterMode = "on",
+        },
+      },
     }
-    lsp.denols.setup {
-      root_dir = lsp.util.root_pattern("deno.json", "deno.jsonc"),
-    }
-    lsp.tsserver.setup {
-      root_dir = lsp.util.root_pattern("package.json"),
-      single_file_support = false,
-    }
-    lsp.eslint.setup {}
-    lsp.typst_lsp.setup {
-      settings = {
-        exportPdf = "onType",
-        experimentalFormatterMode = "on",
-      }
-    }
+
+    for lsp_name, config in pairs(configs) do
+      config = vim.tbl_deep_extend('keep', config, {
+        capabilities = {
+          textDocument = {
+            foldingRange = {
+              dynamicRegistration = false,
+              lineFoldingOnly = true
+            }
+          }
+        }
+      })
+      lsp[lsp_name].setup(config)
+    end
   end
 }
