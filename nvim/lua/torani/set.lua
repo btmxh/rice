@@ -35,6 +35,7 @@ vim.opt.foldlevelstart = 99
 vim.filetype.add({
   extension = {
     stpl = 'html',
+    tmpl = 'html',
   }
 })
 
