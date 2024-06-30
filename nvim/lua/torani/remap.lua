@@ -60,7 +60,7 @@ vim.api.nvim_set_keymap("n", "gx", [[:silent execute '!xdg-open ' . shellescape(
   { desc = "Open link" })
 
 vim.keymap.set("n", "<leader>il", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(0), {bufnr = 0})
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
 end, { desc = "Toggle inlay hint" })
 
 -- terminal related
