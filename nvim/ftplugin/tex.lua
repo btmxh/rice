@@ -29,3 +29,11 @@ vim.keymap.set("n", "<leader>qqq", function()
   local text = "\\includegraphics[scale=0.5]{figures/" .. timestamp .. "}"
   vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { text })
 end, { noremap = true, buffer = true, desc = "tex: New figure" })
+
+local cmp = require("cmp")
+local sources = cmp.get_config().sources
+sources[#sources+1] = {
+  name = "luasnip",
+  keyword_length = 2,
+}
+cmp.setup.buffer({ sources = sources })
