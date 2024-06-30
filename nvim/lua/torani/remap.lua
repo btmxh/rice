@@ -4,10 +4,10 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Oil, { desc = "oil: Open explorer" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste from Clipboard" })
+vim.keymap.set("x", "<leader>p", [["+P]], { desc = "Paste from Clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Copy to Clipboard" })
 vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copy line to Clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Cut to Clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>d", [["+d]], { desc = "Cut to Clipboard" })
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "New tmux session" })
@@ -30,6 +30,8 @@ vim.keymap.set("n", "<leader>wl", "<C-w><C-l>", { desc = "Go to right window" })
 
 vim.keymap.set("n", "<leader>sh", "<cmd>split<CR>", { desc = "Open horizontal split" })
 vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<CR>", { desc = "Open vertical split" })
+vim.keymap.set("n", "<leader>th", "<cmd>split<CR><cmd>term<CR>", { desc = "Open horizontal terminal split" })
+vim.keymap.set("n", "<leader>tv", "<cmd>vsplit<CR><cmd>term<CR>", { desc = "Open vertical terminal split" })
 
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("n", ";;", ";", { remap = true })
@@ -58,5 +60,8 @@ vim.api.nvim_set_keymap("n", "gx", [[:silent execute '!xdg-open ' . shellescape(
   { desc = "Open link" })
 
 vim.keymap.set("n", "<leader>il", function()
-  vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(0), {bufnr = 0})
 end, { desc = "Toggle inlay hint" })
+
+-- terminal related
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
