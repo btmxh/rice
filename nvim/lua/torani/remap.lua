@@ -63,7 +63,7 @@ vim.keymap.set("n", "<leader>il", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
 end, { desc = "Toggle inlay hint" })
 
--- terminal related
+-- <Esc> to switch to normal mode in terminals
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 vim.keymap.set("n", "<leader>hh", "<cmd>ClangdSwitchSourceHeader<CR>", { desc = "Toggle header/source (C/C++)" })
