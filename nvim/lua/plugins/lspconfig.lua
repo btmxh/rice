@@ -33,6 +33,9 @@ return {
           experimentalFormatterMode = "on",
         },
       },
+      texlab = {
+      },
+      lemminx = {},
     }
 
     for lsp_name, config in pairs(configs) do
