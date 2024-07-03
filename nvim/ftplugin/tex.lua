@@ -32,7 +32,7 @@ end, { noremap = true, buffer = true, desc = "tex: New figure" })
 
 local cmp = require("cmp")
 local sources = cmp.get_config().sources
-sources[#sources+1] = {
+sources[#sources + 1] = {
   name = "luasnip",
   keyword_length = 2,
 }
