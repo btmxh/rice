@@ -28,7 +28,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id alttab -font xft:monospace -t 800x100 -vertical
 exec --no-startup-id wired
 exec --no-startup-id picom -b
-exec --no-startup-id ibus-daemon -rxR
+exec --no-startup-id fcitx5 -d
 exec --no-startup-id thunar --daemon
 exec --no-startup-id playerctld
 exec --no-startup-id snixembed
