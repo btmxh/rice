@@ -36,6 +36,7 @@ return {
       texlab = {
       },
       lemminx = {},
+      glsl_analyzer = {},
     }
 
     for lsp_name, config in pairs(configs) do
