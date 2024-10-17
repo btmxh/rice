@@ -36,6 +36,7 @@ vim.filetype.add({
   extension = {
     stpl = 'html',
     tmpl = 'html',
+    jsonl = 'json',
   }
 })
 

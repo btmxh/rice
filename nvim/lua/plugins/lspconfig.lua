@@ -1,11 +1,11 @@
 return {
   'neovim/nvim-lspconfig',
   lazy = false,
-  dev = true,
   config = function()
     local lsp = require('lspconfig')
     local configs = {
       clangd = {},
+      basedpyright = {},
       lua_ls = {
         settings = {
           Lua = {
@@ -22,7 +22,7 @@ return {
           }
         }
       },
-      tsserver = {
+      ts_ls = {
         root_dir = lsp.util.root_pattern("package.json"),
         single_file_support = false,
       },
@@ -37,6 +37,11 @@ return {
       },
       lemminx = {},
       glsl_analyzer = {},
+      gopls = {},
+      ruff = {},
+      html = {},
+      emmet_language_server = {},
+      cssls = {},
     }
 
     for lsp_name, config in pairs(configs) do
