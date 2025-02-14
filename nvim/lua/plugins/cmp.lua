@@ -19,6 +19,7 @@ return {
           { name = 'nvim_lsp' },
           { name = 'nvim_lua' },
           { name = 'buffer',  keyword_length = 3 },
+          -- { name = 'codeium' }
         },
         mapping = cmp.mapping.preset.insert({
           -- confirm completion item
@@ -28,7 +29,7 @@ return {
           ['<C-e>'] = cmp.mapping.close(),
 
           -- tab complete
-          ['<Tab>'] = cmp.mapping(function(fallback)
+          ['<C-n>'] = cmp.mapping(function(fallback)
             local luasnip = lazy_require_luasnip()
             if cmp.visible() then
               cmp.select_next_item(cmp_select)
@@ -39,7 +40,7 @@ return {
             end
           end, { "i", "s" }),
 
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
+          ['<C-m>'] = cmp.mapping(function(fallback)
             local luasnip = lazy_require_luasnip()
             if cmp.visible() then
               cmp.select_prev_item(cmp_select)

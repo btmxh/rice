@@ -27,11 +27,16 @@ return {
         single_file_support = false,
       },
       eslint = {},
-      typst_lsp = {
+      tinymist = {
         settings = {
-          exportPdf = "onType",
-          experimentalFormatterMode = "on",
+          exportPdf = 'onType',
+          outputPath = '$root/target/$dir/$name',
+          root_dir = "-",
+          formatterMode = "typstyle",
         },
+        root_dir = function()
+          return vim.fn.getcwd()
+        end
       },
       texlab = {
       },
@@ -42,6 +47,11 @@ return {
       html = {},
       emmet_language_server = {},
       cssls = {},
+      bashls = {},
+      cmake = {},
+      denols = {
+        root_dir = lsp.util.root_pattern("deno.json", "deno.jsonc"),
+      },
     }
 
     for lsp_name, config in pairs(configs) do

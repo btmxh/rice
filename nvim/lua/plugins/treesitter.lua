@@ -2,7 +2,7 @@ return {
   'nvim-treesitter/nvim-treesitter',
   build = ":TSUpdate",
   config = function()
-    require'nvim-treesitter.configs'.setup {
+    require 'nvim-treesitter.configs'.setup {
       -- A list of parser names, or "all" (the four listed parsers should always be installed)
       ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "rust" },
 
@@ -25,5 +25,24 @@ return {
         additional_vim_regex_highlighting = false,
       },
     }
+
+    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+    ---@diagnostic disable-next-line: inject-field
+    parser_config.numbat = {
+      install_info = {
+        url = "https://github.com/irevoire/tree-sitter-numbat",
+        files = { "src/parser.c", "src/scanner.c" },
+        branch = "main",
+        generate_requires_npm = false,
+        requires_generate_from_grammar = false,
+      },
+      filetype = "numbat",
+    }
+    vim.filetype.add({
+      extension = {
+        nbt = "numbat",
+      },
+    })
+    vim.treesitter.language.register("numbat", "numbat")
   end
 }
